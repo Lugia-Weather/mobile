@@ -5,12 +5,41 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "./src/pages/Login";
 import CriarConta from "./src/pages/CriarConta";
+import Integrantes from "./src/pages/Integrantes";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function Tabs() {
-  return <></>;
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        tabBarActiveTintColor: "#000",
+        tabBarInactiveTintColor: "#444444",
+        tabBarStyle: {
+          height: 60,
+          paddingBottom: 1,
+          paddingHorizontal: 2,
+        },
+
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name="Integrantes"
+        component={Integrantes}
+        options={{
+          tabBarIcon: () => (
+            <Ionicons name="people-sharp" size={26} color="#000" />
+          ),
+          tabBarLabel: "Procurar Moto",
+          tabBarActiveBackgroundColor: "#0AFAFA",
+          tabBarInactiveBackgroundColor: "#E1F5FE",
+        }}
+      />
+    </Tab.Navigator>
+  );
 }
 
 export default function App() {
@@ -25,6 +54,11 @@ export default function App() {
         <Stack.Screen
           name="CriarConta"
           component={CriarConta}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Tabs"
+          component={Tabs}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

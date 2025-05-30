@@ -18,17 +18,17 @@ export default function Btn({ txt, pressFunc }: btnProps) {
 const styles = StyleSheet.create({
   button: {
     backgroundColor: "#0AFAFA",
-    height: 54,
+    height: 50,
     marginHorizontal: 30,
     paddingInline: 24,
-    borderRadius: 5,
+    borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 30,
   },
   buttonText: {
     color: "#111",
-    fontSize: 25,
+    fontSize: 22,
     fontWeight: "bold",
   },
 });

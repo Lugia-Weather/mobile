@@ -24,7 +24,7 @@ export default function Login({ navigation }: any) {
   };
 
   const handleLogin = () => {
-    if (email === "funcionario@mottu.com" && password === "organiza") {
+    if (email == "funcionario@mottu.com" && password == "organiza") {
       setError("");
       navigation.navigate("Tabs");
     } else {
