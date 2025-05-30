@@ -17,7 +17,7 @@ export default function Btn({ txt, pressFunc }: btnProps) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#E1F5FE",
+    backgroundColor: "#0AFAFA",
     height: 54,
     marginHorizontal: 30,
     paddingInline: 24,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   buttonText: {
-    color: "#0AFAFA",
+    color: "#111",
     fontSize: 25,
     fontWeight: "bold",
   },

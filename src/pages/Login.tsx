@@ -29,6 +29,7 @@ export default function Login({ navigation }: any) {
       navigation.navigate("Tabs");
     } else {
       setError("Email ou senha inválidos.");
+      setTimeout(() => setError(""), 4000);
     }
   };
 
@@ -78,6 +79,17 @@ export default function Login({ navigation }: any) {
         {error !== "" && <Text style={styles.errorText}>{error}</Text>}
 
         <Btn txt="Entrar" pressFunc={handleLogin} />
+        <View style={styles.containerCreateAccount}>
+          <Text style={{ color: "#E1F5FE", fontSize: 16 }}>
+            Se você não tiver uma conta, clique em
+          </Text>
+          <Text
+            style={{ color: "#0AFAFA", fontSize: 20 }}
+            onPress={() => navigation.navigate("CriarConta")}
+          >
+            Criar Conta
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -88,17 +100,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#49607D",
     padding: 20,
-  },
-  logoContainer: {
-    width: "100%",
-    height: 62,
-    marginTop: 30,
-    alignItems: "center",
-  },
-  logo: {
-    width: 85,
-    height: 63,
-    paddingInline: 40,
   },
   formContainer: {
     flex: 1,
@@ -135,11 +136,23 @@ const styles = StyleSheet.create({
     height: 1,
     backgroundColor: "#E1F5FE",
     marginTop: 5,
+    color: "white",
   },
   errorText: {
-    color: "#EB5757",
+    color: "#FFD54F",
     textAlign: "center",
-    marginBottom: 20,
-    fontSize: 14,
+    marginTop: 14,
+    fontSize: 18,
+    fontWeight: "500",
+    position: "absolute",
+    alignSelf: "center",
+  },
+  containerCreateAccount: {
+    position: "absolute",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    bottom: 250,
+    gap: 2,
   },
 });
