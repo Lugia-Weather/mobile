@@ -1,26 +1,27 @@
 import axios from "axios";
 import React, { useState } from "react";
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Icon from "react-native-vector-icons/Ionicons";
 import Btn from "../components/Btn";
+import Inputs from "../components/Inputs";
 
 export default function CriarConta({ navigation }: any) {
-  const [nome, setNome] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
   const [cep, setCep] = useState("");
 
   const [loading, setLoading] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setHidePassword(!hidePassword);
+  };
+
   const handleCadastro = async () => {
-    if (!nome || !email || !senha || !cep) {
+    if (!name || !email || !password || !cep) {
       Alert.alert("Erro", "Todos os campos são obrigatórios.");
       setLoading(false);
       return;
@@ -78,38 +79,48 @@ export default function CriarConta({ navigation }: any) {
       </View>
 
       <View style={styles.inputContainer}>
-        <View style={styles.inputField}>
-          <TextInput
-            placeholder="digite seu nome completo"
-            placeholderTextColor="#999"
-            style={styles.input}
+        <Inputs
+          placeholder="Informe seu nome completo"
+          keyboardType="default"
+          onChangeText={(text: string) => setName(text)}
+          value={name}
+          textType="name"
+        />
+
+        <Inputs
+          placeholder="Informe seu email"
+          keyboardType="email-address"
+          onChangeText={(text: string) => setEmail(text)}
+          value={email}
+          textType="emailAddress"
+        />
+        <View style={styles.inputWrapper}>
+          <Inputs
+            placeholder="Crie uma senha forte"
+            keyboardType="default"
+            value={password}
+            onChangeText={setPassword}
+            textType="password"
+            security={hidePassword}
           />
+          <TouchableOpacity
+            onPress={togglePasswordVisibility}
+            style={styles.eyeIconAbsolute}
+          >
+            <Icon
+              name={hidePassword ? "eye-off" : "eye"}
+              size={22}
+              color="#607D8B"
+            />
+          </TouchableOpacity>
         </View>
-        <View style={styles.inputField}>
-          <TextInput
-            placeholder="digite seu email"
-            placeholderTextColor="#999"
-            style={styles.input}
-            keyboardType="email-address"
-          />
-        </View>
-        <View style={styles.inputField}>
-          <TextInput
-            placeholder="crie uma senha"
-            placeholderTextColor="#999"
-            secureTextEntry
-            style={styles.input}
-          />
-        </View>
-        <View style={styles.inputField}>
-          <TextInput
-            placeholder="digite seu CEP"
-            placeholderTextColor="#999"
-            style={styles.input}
-            keyboardType="numeric"
-            maxLength={9}
-          />
-        </View>
+
+        <Inputs
+          placeholder="Informe seu CEP"
+          keyboardType="numeric"
+          onChangeText={(text: string) => setCep(text)}
+          value={cep}
+        />
       </View>
 
       <Btn txt="Criar Conta" pressFunc={handleCadastro} />
@@ -142,20 +153,29 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#0AFAFA",
   },
+  inputWrapper: {
+    position: "relative",
+    width: "100%",
+    justifyContent: "center",
+  },
+  eyeIconAbsolute: {
+    position: "absolute",
+    right: 20,
+    top: "32%",
+    zIndex: 1,
+  },
 
   inputContainer: {
     width: "80%",
     marginVertical: 15,
     gap: 20,
   },
-  inputField: {
-    backgroundColor: "#E8E8E8",
-    borderRadius: 25,
-    paddingHorizontal: 15,
-    marginVertical: 6,
-    height: 45,
-    justifyContent: "center",
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: "100%",
   },
+
   input: {
     fontSize: 16,
   },
