@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#0AFAFA",
+    color: "#E1F5FE",
   },
   inputWrapper: {
     position: "relative",

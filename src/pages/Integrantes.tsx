@@ -1,11 +1,27 @@
 import React from "react";
-import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  ScrollView,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 import Integrante from "../components/Integrante";
-
-export default function Integrantes() {
+import { Entypo } from "@expo/vector-icons";
+export default function Integrantes({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
       <Text style={styles.title}>Participantes</Text>
+
+      <Entypo
+        name="chevron-left"
+        size={34}
+        color="white"
+        style={styles.icon}
+        onPress={navigation.reset({ index: 0, routes: [{ name: "Login" }] })}
+      />
 
       <Integrante
         name="Nathan Magno"
@@ -42,7 +58,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#0AFAFA",
+    color: "white",
     marginVertical: "12%",
   },
   header: {
@@ -58,5 +74,10 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 22,
     color: "white",
+  },
+  icon: {
+    position: "absolute",
+    top: "4%",
+    left: "5%",
   },
 });

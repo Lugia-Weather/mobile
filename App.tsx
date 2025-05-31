@@ -22,7 +22,6 @@ function Tabs() {
           paddingBottom: 1,
           paddingHorizontal: 2,
         },
-
         headerShown: false,
       }}
     >
@@ -33,7 +32,7 @@ function Tabs() {
           tabBarIcon: () => (
             <Ionicons name="people-sharp" size={26} color="#000" />
           ),
-          tabBarLabel: "Procurar Moto",
+          tabBarLabel: "Integrantes",
           tabBarActiveBackgroundColor: "#0AFAFA",
           tabBarInactiveBackgroundColor: "#E1F5FE",
         }}
