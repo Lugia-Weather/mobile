@@ -9,20 +9,12 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Integrante from "../components/Integrante";
-import { Entypo } from "@expo/vector-icons";
+import HeaderPages from "../components/HeaderPages";
+
 export default function Integrantes({ navigation }: any) {
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <Text style={styles.title}>Participantes</Text>
-
-      <Entypo
-        name="chevron-left"
-        size={34}
-        color="white"
-        style={styles.icon}
-        onPress={navigation.reset({ index: 0, routes: [{ name: "Login" }] })}
-      />
-
+      <HeaderPages title="Integrantes" navigation={navigation} />
       <Integrante
         name="Nathan Magno"
         rm="RM 558987"
@@ -54,30 +46,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#49607D",
     paddingBottom: 40,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "white",
-    marginVertical: "12%",
-  },
-  header: {
-    flexDirection: "row",
-    marginTop: 20,
-    alignItems: "center",
-  },
-  logohomepage: {
-    width: 60,
-    height: 60,
-  },
-  textHeader: {
-    marginLeft: 10,
-    fontSize: 22,
-    color: "white",
-  },
-  icon: {
-    position: "absolute",
-    top: "4%",
-    left: "5%",
   },
 });
