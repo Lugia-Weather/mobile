@@ -7,6 +7,7 @@ interface inputsProps {
   textType?: React.ComponentProps<typeof TextInput>["textContentType"];
   onChangeText?: (text: string) => void;
   security?: boolean | undefined;
+  maxLength?: number | undefined;
 }
 
 export default function Inputs({
@@ -16,6 +17,7 @@ export default function Inputs({
   onChangeText,
   textType,
   security,
+  maxLength,
 }: inputsProps) {
   return (
     <View style={styles.inputField}>
@@ -27,6 +29,7 @@ export default function Inputs({
         onChangeText={onChangeText}
         secureTextEntry={security}
         textContentType={textType}
+        maxLength={maxLength}
       />
     </View>
   );

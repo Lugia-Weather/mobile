@@ -1,10 +1,18 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Btn from "../components/Btn";
 import Inputs from "../components/Inputs";
+import RequiredLabel from "../components/RequiredLabel";
 
 export default function CriarConta({ navigation }: any) {
   const [hidePassword, setHidePassword] = useState(true);
@@ -13,6 +21,14 @@ export default function CriarConta({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cep, setCep] = useState("");
+  const [numero, setNumero] = useState("");
+  const [celular, setCelular] = useState("");
+
+  const [logradouro, setLogradouro] = useState("");
+  const [bairro, setBairro] = useState("");
+  const [cidade, setCidade] = useState("");
+  const [uf, setUf] = useState("");
+  const [complemento, setComplemento] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -73,55 +89,115 @@ export default function CriarConta({ navigation }: any) {
   //   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Crie sua conta</Text>
-      </View>
+    <ScrollView
+      contentContainerStyle={styles.scrollContainer}
+      keyboardShouldPersistTaps="handled"
+    >
+      <Text style={styles.title}>Crie sua conta</Text>
 
-      <View style={styles.inputContainer}>
-        <Inputs
-          placeholder="Informe seu nome completo"
-          keyboardType="default"
-          onChangeText={(text: string) => setName(text)}
-          value={name}
-          textType="name"
-        />
-
-        <Inputs
-          placeholder="Informe seu email"
-          keyboardType="email-address"
-          onChangeText={(text: string) => setEmail(text)}
-          value={email}
-          textType="emailAddress"
-        />
-        <View style={styles.inputWrapper}>
+      <View style={styles.groupContainer}>
+        <Text style={styles.groupTitle}>Cadastro</Text>
+        <View style={styles.inputGroup}>
+          <RequiredLabel text="Nome completo" />
           <Inputs
-            placeholder="Crie uma senha forte"
+            placeholder="Informe seu nome completo"
             keyboardType="default"
-            value={password}
-            onChangeText={setPassword}
-            textType="password"
-            security={hidePassword}
+            onChangeText={setName}
+            value={name}
+            textType="name"
           />
-          <TouchableOpacity
-            onPress={togglePasswordVisibility}
-            style={styles.eyeIconAbsolute}
-          >
-            <Icon
-              name={hidePassword ? "eye-off" : "eye"}
-              size={22}
-              color="#607D8B"
-            />
-          </TouchableOpacity>
         </View>
-
-        <Inputs
-          placeholder="Informe seu CEP"
-          keyboardType="numeric"
-          onChangeText={(text: string) => setCep(text)}
-          value={cep}
-        />
+        <View style={styles.inputGroup}>
+          <RequiredLabel text="Email" />
+          <Inputs
+            placeholder="Informe seu email"
+            keyboardType="email-address"
+            onChangeText={setEmail}
+            value={email}
+            textType="emailAddress"
+          />
+        </View>
+        <View style={styles.inputGroup}>
+          <RequiredLabel text="Senha" />
+          <View style={styles.inputWrapper}>
+            <Inputs
+              placeholder="Crie uma senha forte"
+              keyboardType="default"
+              value={password}
+              onChangeText={setPassword}
+              textType="password"
+              security={hidePassword}
+            />
+            <TouchableOpacity
+              onPress={togglePasswordVisibility}
+              style={styles.eyeIconAbsolute}
+            >
+              <Icon
+                name={hidePassword ? "eye-off" : "eye"}
+                size={22}
+                color="#607D8B"
+              />
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
+
+      <View style={styles.groupContainer}>
+        <Text style={styles.groupTitle}>Endereço</Text>
+        <View style={styles.inputGroup}>
+          <RequiredLabel text="CEP" />
+          <Inputs
+            placeholder="Informe seu CEP"
+            keyboardType="numeric"
+            onChangeText={setCep}
+            value={cep}
+            maxLength={8}
+          />
+        </View>
+        <View style={styles.inputGroup}>
+          <RequiredLabel text="Número do endereço" />
+          <Inputs
+            placeholder="Número"
+            keyboardType="numeric"
+            onChangeText={setNumero}
+            value={numero}
+          />
+        </View>
+        <View style={styles.inputGroup}>
+          <Text style={styles.label}>Complemento (opcional)</Text>
+          <Inputs
+            placeholder="Complemento"
+            keyboardType="default"
+            onChangeText={setComplemento}
+            value={complemento}
+          />
+        </View>
+        {logradouro ? (
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Endereço</Text>
+            <Text style={styles.addressText}>
+              {logradouro}, {bairro}, {cidade} - {uf}
+            </Text>
+          </View>
+        ) : null}
+      </View>
+
+      <View style={styles.groupContainer}>
+        <Text style={styles.groupTitle}>Contato</Text>
+        <View style={styles.inputGroup}>
+          <RequiredLabel text="Celular" />
+          <Inputs
+            placeholder="Informe seu número de celular"
+            keyboardType="phone-pad"
+            onChangeText={setCelular}
+            value={celular}
+          />
+        </View>
+      </View>
+
+      {loading && (
+        <ActivityIndicator color="#0AFAFA" style={{ marginVertical: 8 }} />
+      )}
 
       <Btn txt="Criar Conta" pressFunc={handleCadastro} />
 
@@ -131,27 +207,47 @@ export default function CriarConta({ navigation }: any) {
       >
         <Text style={styles.loginLinkText}>Já tenho uma conta</Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 25,
+  scrollContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
     backgroundColor: "#49607D",
-    flex: 1,
-  },
-  textContainer: {
     alignItems: "center",
-    marginBottom: 15,
+    paddingVertical: 30,
+    paddingBottom: 100,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "bold",
     textAlign: "center",
-    color: "#E1F5FE",
+    color: "white",
+    marginTop: "12%",
+    marginBottom: 20,
+  },
+  groupContainer: {
+    width: "92%",
+    backgroundColor: "#3C4A5B",
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 20,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+  groupTitle: {
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#0AFAFA",
+    marginBottom: 10,
+    letterSpacing: 0.5,
+  },
+  inputGroup: {
+    marginBottom: 14,
   },
   inputWrapper: {
     position: "relative",
@@ -160,43 +256,31 @@ const styles = StyleSheet.create({
   },
   eyeIconAbsolute: {
     position: "absolute",
-    right: 20,
+    right: 14,
     top: "32%",
     zIndex: 1,
   },
-
-  inputContainer: {
-    width: "80%",
-    marginVertical: 15,
-    gap: 20,
-  },
-  passwordContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    width: "100%",
-  },
-
-  input: {
-    fontSize: 16,
-  },
-  createButton: {
-    backgroundColor: "#FF0066",
-    borderRadius: 25,
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    marginVertical: 8,
-  },
-  createButtonText: {
-    color: "white",
-    fontWeight: "bold",
-    fontSize: 16,
+  addressText: {
+    color: "#B2EBF2",
+    fontSize: 14,
+    marginLeft: 2,
+    marginTop: 2,
   },
   loginLink: {
-    marginTop: 8,
+    marginTop: 20,
+    alignSelf: "center",
   },
   loginLinkText: {
     color: "#0AFAFA",
-    fontSize: 18,
-    marginTop: 30,
+    fontSize: 17,
+    fontWeight: "600",
+    textAlign: "center",
+  },
+  label: {
+    color: "white",
+    fontSize: 15,
+    marginBottom: 2,
+    marginLeft: 2,
+    fontWeight: "500",
   },
 });
