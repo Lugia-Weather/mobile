@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { Entypo } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 interface headerProps {
   navigation?: any;
@@ -9,10 +9,8 @@ interface headerProps {
 export default function HeaderPages({ navigation, title }: headerProps) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
-
-      <Entypo
-        name="chevron-left"
+      <MaterialCommunityIcons
+        name="logout"
         size={34}
         color="white"
         style={styles.icon}
@@ -20,6 +18,7 @@ export default function HeaderPages({ navigation, title }: headerProps) {
           navigation.reset({ index: 0, routes: [{ name: "Login" }] })
         }
       />
+      <Text style={styles.title}>{title}</Text>
     </View>
   );
 }
