@@ -6,17 +6,28 @@ interface SensorItemProps {
   id_modulo: string;
   rua: string;
   navigation?: any;
+  data_instalacao?: string;
+  leituras?: any;
 }
 
 export default function Sensor({
   id_modulo,
   rua,
   navigation,
+  data_instalacao,
+  leituras,
 }: SensorItemProps) {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => navigation.navigate("Dispositivo")}
+      onPress={() =>
+        navigation.navigate("Dispositivo", {
+          id_modulo,
+          rua,
+          data_instalacao,
+          leituras,
+        })
+      }
     >
       <Image
         source={require("../../assets/sensor.png")}
