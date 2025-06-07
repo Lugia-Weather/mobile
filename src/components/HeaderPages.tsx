@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   icon: {
     position: "absolute",
-    left: "5%",
+    right: "10%",
   },
   container: {
     flexDirection: "row",
