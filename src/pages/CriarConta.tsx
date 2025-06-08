@@ -21,15 +21,8 @@ export default function CriarConta({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cep, setCep] = useState("");
-  const [numero, setNumero] = useState("");
   const [celular, setCelular] = useState("");
-
-  const [logradouro, setLogradouro] = useState("");
-  const [bairro, setBairro] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [uf, setUf] = useState("");
   const [complemento, setComplemento] = useState("");
-
   const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -37,56 +30,58 @@ export default function CriarConta({ navigation }: any) {
   };
 
   const handleCadastro = async () => {
-    if (!name || !email || !password || !cep) {
-      Alert.alert("Erro", "Todos os campos são obrigatórios.");
-      setLoading(false);
+    if (!name || !email || !password || !cep || !celular) {
+      Alert.alert(
+        "Erro",
+        "Todos os campos obrigatórios devem ser preenchidos."
+      );
       return;
     }
+
+    setLoading(true);
+
+    const ddd = celular.substring(0, 2);
+    const numero = celular.substring(2);
+
+    const payload = {
+      nome: name,
+      email: email,
+      senha: password,
+      telefone: { ddd: ddd, numero: numero },
+      endereco: { cep: cep },
+    };
+
+    try {
+      const response = await axios.post(
+        "http://{insira o ip de sua máquina}}:8080/users/inserir",
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 201 || response.status === 200) {
+        Alert.alert("Sucesso", "Usuário criado com sucesso!");
+        navigation.navigate("Login");
+      } else {
+        Alert.alert("Erro", "Erro ao criar usuário. Tente novamente.");
+      }
+    } catch (error: any) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        Alert.alert("Erro", error.response.data.message);
+      } else {
+        Alert.alert("Erro", "Erro desconhecido ao criar usuário.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
-
-  //     try {
-  //       const response = await axios.post(`http://${ip}:5000/pessoas/cadastro`, {
-  //         nome,
-  //         email,
-  //         senha,
-  //         cep,
-  //       });
-
-  //       if (response.status === 200 || response.status === 201) {
-  //         Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
-  //         navigation.navigate("Tabs", { email: email });
-  //       }
-  //     } catch (error) {
-  //       console.log("ERRO:", error.response?.data);
-
-  //       if (error.response) {
-  //         const { status, data } = error.response;
-  //         const message = data?.message || data?.error || "";
-
-  //         if (status === 400 && message.toLowerCase().includes("e-mail")) {
-  //           Alert.alert(
-  //             "Erro",
-  //             "Já existe uma conta cadastrada com esse e-mail."
-  //           );
-  //         } else if (
-  //           status === 400 &&
-  //           message.toLowerCase().includes("campos obrigatórios")
-  //         ) {
-  //           Alert.alert("Erro", "Todos os campos são obrigatórios.");
-  //         } else {
-  //           Alert.alert(
-  //             "Erro",
-  //             message ||
-  //               "Erro ao cadastrar. Verifique os dados e tente novamente."
-  //           );
-  //         }
-  //       } else {
-  //         Alert.alert("Erro", "Não foi possível conectar ao servidor.");
-  //       }
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
 
   return (
     <ScrollView
@@ -151,16 +146,7 @@ export default function CriarConta({ navigation }: any) {
             keyboardType="numeric"
             onChangeText={setCep}
             value={cep}
-            maxLength={8}
-          />
-        </View>
-        <View style={styles.inputGroup}>
-          <RequiredLabel text="Número do endereço" />
-          <Inputs
-            placeholder="Número"
-            keyboardType="numeric"
-            onChangeText={setNumero}
-            value={numero}
+            maxLength={9}
           />
         </View>
         <View style={styles.inputGroup}>
@@ -172,14 +158,6 @@ export default function CriarConta({ navigation }: any) {
             value={complemento}
           />
         </View>
-        {logradouro ? (
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Endereço</Text>
-            <Text style={styles.addressText}>
-              {logradouro}, {bairro}, {cidade} - {uf}
-            </Text>
-          </View>
-        ) : null}
       </View>
 
       <View style={styles.groupContainer}>
@@ -187,10 +165,11 @@ export default function CriarConta({ navigation }: any) {
         <View style={styles.inputGroup}>
           <RequiredLabel text="Celular" />
           <Inputs
-            placeholder="Informe seu número de celular"
+            placeholder="Informe seu número de celular (ex: 11999999999)"
             keyboardType="phone-pad"
             onChangeText={setCelular}
             value={celular}
+            maxLength={11}
           />
         </View>
       </View>
@@ -259,12 +238,6 @@ const styles = StyleSheet.create({
     right: 14,
     top: "32%",
     zIndex: 1,
-  },
-  addressText: {
-    color: "#B2EBF2",
-    fontSize: 14,
-    marginLeft: 2,
-    marginTop: 2,
   },
   loginLink: {
     marginTop: 20,
