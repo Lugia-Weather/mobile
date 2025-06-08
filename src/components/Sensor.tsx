@@ -2,13 +2,13 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 
-interface SensorItemProps {
+export type SensorItemProps = {
   id_modulo: string;
   rua: string;
   navigation?: any;
   data_instalacao?: string;
   leituras?: any;
-}
+};
 
 export default function Sensor({
   id_modulo,
@@ -26,6 +26,7 @@ export default function Sensor({
           rua,
           data_instalacao,
           leituras,
+          navigation,
         })
       }
     >

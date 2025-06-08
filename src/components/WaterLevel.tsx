@@ -64,7 +64,7 @@ export default function WaterLevel({ level }: WaterLevelGaugeProps) {
       </Svg>
 
       <Text style={[styles.status, { color }]}>{text}</Text>
-      <Text style={styles.level}>{level.toFixed(2)} m</Text>
+      <Text style={styles.level}>nível da água: {level.toFixed(2)} m</Text>
     </View>
   );
 }
