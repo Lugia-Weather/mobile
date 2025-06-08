@@ -42,18 +42,19 @@ export default function CriarConta({ navigation }: any) {
 
     const ddd = celular.substring(0, 2);
     const numero = celular.substring(2);
+    const cepMod = `${cep.substring(0, 5)}-${cep.substring(5)}`;
 
     const payload = {
       nome: name,
       email: email,
       senha: password,
       telefone: { ddd: ddd, numero: numero },
-      endereco: { cep: cep },
+      endereco: { cep: cepMod },
     };
 
     try {
       const response = await axios.post(
-        "http://{insira o ip de sua máquina}}:8080/users/inserir",
+        "http://192.168.15.3:8080/users/inserir",
         payload,
         {
           headers: {
@@ -146,7 +147,7 @@ export default function CriarConta({ navigation }: any) {
             keyboardType="numeric"
             onChangeText={setCep}
             value={cep}
-            maxLength={9}
+            maxLength={8}
           />
         </View>
         <View style={styles.inputGroup}>
@@ -165,7 +166,7 @@ export default function CriarConta({ navigation }: any) {
         <View style={styles.inputGroup}>
           <RequiredLabel text="Celular" />
           <Inputs
-            placeholder="Informe seu número de celular (ex: 11999999999)"
+            placeholder="Informe seu número de celular com ddd"
             keyboardType="phone-pad"
             onChangeText={setCelular}
             value={celular}
