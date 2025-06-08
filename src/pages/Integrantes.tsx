@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  ScrollView,
-  Touchable,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import Integrante from "../components/Integrante";
 import HeaderPages from "../components/HeaderPages";
 

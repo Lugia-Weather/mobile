@@ -6,8 +6,6 @@ import {
   Linking,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View,
 } from "react-native";
 import Btn from "./Btn";
 
