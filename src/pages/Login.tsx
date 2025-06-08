@@ -54,10 +54,10 @@ export default function Login({ navigation }: any) {
           "http://172.191.241.118:8080/users"
         );
         if (usersResponse.status === 200 && Array.isArray(usersResponse.data)) {
-          const usuario = usersResponse.data.find((u) => u.email === email);
-          if (usuario && usuario.endereco && usuario.endereco.bairro) {
+          const user = usersResponse.data.find((u) => u.email === email);
+          if (user.endereco.bairro) {
             navigation.navigate("Tabs", {
-              bairro: usuario.endereco.bairro,
+              bairro: user.endereco.bairro,
             });
           } else {
             setError("Não foi possível localizar o endereço do usuário.");

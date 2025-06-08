@@ -29,7 +29,7 @@ export default function CriarConta({ navigation }: any) {
     setHidePassword(!hidePassword);
   };
 
-  const handleCadastro = async () => {
+  const handleRegister = async () => {
     if (!name || !email || !password || !cep || !celular) {
       Alert.alert(
         "Erro",
@@ -190,7 +190,7 @@ export default function CriarConta({ navigation }: any) {
         <ActivityIndicator color="#0AFAFA" style={{ marginVertical: 8 }} />
       )}
 
-      <Btn txt="Criar Conta" pressFunc={handleCadastro} />
+      <Btn txt="Criar Conta" pressFunc={handleRegister} />
 
       <TouchableOpacity
         style={styles.loginLink}
