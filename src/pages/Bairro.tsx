@@ -56,13 +56,14 @@ const sensores = [
 ];
 
 export default function Bairro({ navigation, route }: any) {
+  const waterLevel = Math.random() * 2;
   const bairro = route?.params?.bairro || "Bairro não informado";
 
   return (
     <View style={styles.container}>
       <HeaderPages title={bairro} navigation={navigation} />
       <View style={styles.waterContainer}>
-        <WaterLevel level={1.6} />
+        <WaterLevel level={waterLevel} />
       </View>
       <FlatList
         style={styles.list}

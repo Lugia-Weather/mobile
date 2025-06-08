@@ -15,6 +15,7 @@ export default function Dispositivo() {
   const route = useRoute<DispositivoRouteProp>();
   const { id_modulo, rua, data_instalacao, leituras, navigation } =
     route.params;
+  const waterLevel = Math.random() * 2;
 
   return (
     <View style={styles.container}>
@@ -36,7 +37,7 @@ export default function Dispositivo() {
         </View>
       </View>
       <View style={styles.waterContainer}>
-        <WaterLevel level={2} />
+        <WaterLevel level={waterLevel} />
       </View>
     </View>
   );

@@ -57,7 +57,9 @@ export default function Login({ navigation }: any) {
         if (usersResponse.status === 200 && Array.isArray(usersResponse.data)) {
           const usuario = usersResponse.data.find((u) => u.email === email);
           if (usuario && usuario.endereco && usuario.endereco.bairro) {
-            navigation.navigate("Tabs", { bairro: usuario.endereco.bairro });
+            navigation.navigate("Tabs", {
+              bairro: usuario.endereco.bairro,
+            });
           } else {
             setError("Não foi possível localizar o endereço do usuário.");
           }
