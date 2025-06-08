@@ -13,7 +13,8 @@ import Dispositivo from "./src/pages/Dispositivo";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function Tabs() {
+function Tabs({ route }: any) {
+  const bairro = route?.params?.bairro;
   return (
     <Tab.Navigator
       screenOptions={{
@@ -30,6 +31,7 @@ function Tabs() {
       <Tab.Screen
         name="Bairro"
         component={Bairro}
+        initialParams={{ bairro }}
         options={{
           tabBarIcon: () => (
             <MaterialCommunityIcons

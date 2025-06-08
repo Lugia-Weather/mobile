@@ -7,58 +7,60 @@ import Sensor from "../components/Sensor";
 const sensores = [
   {
     id_modulo: "2323",
-    rua: "Alencar",
+    rua: "Rua 1",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
   {
     id_modulo: "2324",
-    rua: "Paulista",
+    rua: "Rua 2",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
   {
     id_modulo: "2325",
-    rua: "Liberdade",
+    rua: "Rua 3",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
   {
     id_modulo: "2326",
-    rua: "Sé",
+    rua: "Rua 4",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
   {
     id_modulo: "2327",
-    rua: "Vergueiro",
+    rua: "Rua 5",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
   {
     id_modulo: "2328",
-    rua: "Ipiranga",
+    rua: "Rua 6",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
   {
     id_modulo: "2328",
-    rua: "Ipiranga",
+    rua: "Rua 7",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
   {
     id_modulo: "2328",
-    rua: "Ipiranga",
+    rua: "Rua 8",
     data_instalacao: "11/04/2025",
     leituras: "5 itens",
   },
 ];
 
-export default function Bairro({ navigation }: any) {
+export default function Bairro({ navigation, route }: any) {
+  const bairro = route?.params?.bairro || "Bairro não informado";
+
   return (
     <View style={styles.container}>
-      <HeaderPages title="Praça da Sé" navigation={navigation} />
+      <HeaderPages title={bairro} navigation={navigation} />
       <View style={styles.waterContainer}>
         <WaterLevel level={1.6} />
       </View>

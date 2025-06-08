@@ -54,7 +54,7 @@ export default function CriarConta({ navigation }: any) {
 
     try {
       const response = await axios.post(
-        "http://192.168.15.3:8080/users/inserir",
+        "http://172.191.241.118:8080/users/inserir",
         payload,
         {
           headers: {
@@ -115,6 +115,14 @@ export default function CriarConta({ navigation }: any) {
         </View>
         <View style={styles.inputGroup}>
           <RequiredLabel text="Senha" />
+          <Text style={{ color: "#0AFAFA", fontSize: 16, marginTop: 10 }}>
+            Sua senha deve conter:
+          </Text>
+          <Text style={styles.textValidation}>8 caracteres no mínimo</Text>
+          <Text style={styles.textValidation}>1 Caractere especial</Text>
+          <Text style={styles.textValidation}>1 número</Text>
+          <Text style={styles.textValidation}>1 letra maiúscula</Text>
+          <Text style={styles.textValidation}>1 letra minúscula</Text>
           <View style={styles.inputWrapper}>
             <Inputs
               placeholder="Crie uma senha forte"
@@ -142,6 +150,9 @@ export default function CriarConta({ navigation }: any) {
         <Text style={styles.groupTitle}>Endereço</Text>
         <View style={styles.inputGroup}>
           <RequiredLabel text="CEP" />
+          <Text style={{ color: "#0AFAFA", fontSize: 16, marginTop: 10 }}>
+            Apenas números
+          </Text>
           <Inputs
             placeholder="Informe seu CEP"
             keyboardType="numeric"
@@ -256,5 +267,8 @@ const styles = StyleSheet.create({
     marginBottom: 2,
     marginLeft: 2,
     fontWeight: "500",
+  },
+  textValidation: {
+    color: "white",
   },
 });

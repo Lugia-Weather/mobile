@@ -1,6 +1,5 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-
-import { Image } from "expo-image";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import {
   SafeAreaView,
@@ -9,6 +8,8 @@ import {
   TouchableOpacity,
   View,
   Text,
+  ActivityIndicator,
+  Keyboard,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import Btn from "../components/Btn";
@@ -18,18 +19,62 @@ export default function Login({ navigation }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
   };
 
-  const handleLogin = () => {
-    if (email == "" && password == "") {
-      setError("");
-      navigation.navigate("Tabs");
-    } else {
-      setError("Email ou senha inválidos.");
-      setTimeout(() => setError(""), 4000);
+  const handleLogin = async () => {
+    setError("");
+    Keyboard.dismiss();
+
+    if (!email || !password) {
+      setError("Informe email e senha.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        "http://172.191.241.118:8080/auth/login",
+        {
+          email: email,
+          senha: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const usersResponse = await axios.get(
+          "http://172.191.241.118:8080/users"
+        );
+        if (usersResponse.status === 200 && Array.isArray(usersResponse.data)) {
+          const usuario = usersResponse.data.find((u) => u.email === email);
+          if (usuario && usuario.endereco && usuario.endereco.bairro) {
+            navigation.navigate("Tabs", { bairro: usuario.endereco.bairro });
+          } else {
+            setError("Não foi possível localizar o endereço do usuário.");
+          }
+        } else {
+          setError("Erro ao buscar dados do usuário.");
+        }
+      } else {
+        setError("Erro ao autenticar. Tente novamente.");
+      }
+    } catch (error: any) {
+      if (error.response && error.response.status === 401) {
+        setError("Email ou senha inválidos.");
+      } else {
+        setError("Erro de conexão. Tente novamente.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,6 +91,8 @@ export default function Login({ navigation }: any) {
             value={email}
             onChangeText={setEmail}
             placeholder="Digite seu email"
+            autoCapitalize="none"
+            autoCorrect={false}
           />
           <View style={styles.underline} />
         </View>
@@ -61,6 +108,8 @@ export default function Login({ navigation }: any) {
               value={password}
               onChangeText={setPassword}
               placeholder="Digite sua senha"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
             <TouchableOpacity
               onPress={togglePasswordVisibility}
@@ -77,14 +126,29 @@ export default function Login({ navigation }: any) {
         </View>
 
         {error !== "" && <Text style={styles.errorText}>{error}</Text>}
+        {loading && (
+          <ActivityIndicator color="#0AFAFA" style={{ marginTop: 16 }} />
+        )}
 
         <Btn txt="Entrar" pressFunc={handleLogin} />
         <View style={styles.containerCreateAccount}>
-          <Text style={{ color: "#E1F5FE", fontSize: 16 }}>
+          <Text
+            style={{
+              color: "#E1F5FE",
+              fontSize: 16,
+              position: "absolute",
+              marginTop: 45,
+            }}
+          >
             Se você não tiver uma conta, clique em
           </Text>
           <Text
-            style={{ color: "#0AFAFA", fontSize: 20 }}
+            style={{
+              color: "#0AFAFA",
+              fontSize: 20,
+              position: "absolute",
+              marginTop: 100,
+            }}
             onPress={() => navigation.navigate("CriarConta")}
           >
             Criar Conta
