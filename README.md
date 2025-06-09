@@ -1,4 +1,4 @@
-# Lugia Weeater
+# Lugia Weather
 
 ## Integrantes
 
@@ -73,4 +73,6 @@ enchentes.
 
 ## Utilização
 
-Vídeo de demonstração do proejeto:
+Vídeo de demonstração do proejeto: https://youtu.be/bkhJz-FRFaA
+
+Pitch do projeto: https://youtu.be/-sd2b8T3hOA 
