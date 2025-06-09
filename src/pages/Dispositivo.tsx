@@ -1,18 +1,21 @@
 import { RouteProp, useRoute } from "@react-navigation/native";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, FlatList, SafeAreaView } from "react-native";
 import HeaderPages from "../components/HeaderPages";
 import WaterLevel from "../components/WaterLevel";
 import { Leitura, SensorItemProps } from "../components/Sensor";
-import { FlatList } from "react-native";
 
 type ParamList = {
   Dispositivo: SensorItemProps;
 };
 
-// Anotação importante para mim. RouteProp serve para tipar os parâmetos de uma rota
 type DispositivoRouteProp = RouteProp<ParamList, "Dispositivo">;
 
 export default function Dispositivo() {
+  const route = useRoute<DispositivoRouteProp>();
+  const { id_modulo, rua, data_instalacao, leituras, navigation } =
+    route.params;
+  const waterLevel = Math.random() * 2;
+
   function getStatusStyle(status: Leitura["status"]) {
     switch (status) {
       case "seguro":
@@ -25,17 +28,10 @@ export default function Dispositivo() {
         return { color: "#fff" };
     }
   }
-
-  const route = useRoute<DispositivoRouteProp>();
-  const { id_modulo, rua, data_instalacao, leituras, navigation } =
-    route.params;
-  const waterLevel = Math.random() * 2;
-
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <HeaderPages title={id_modulo} navigation={navigation} />
-      </View>
+      <HeaderPages title={id_modulo} navigation={navigation} />
+
       <View style={styles.contentContainer}>
         <View style={styles.content}>
           <Text style={styles.blueText}>Rua: </Text>
@@ -72,24 +68,16 @@ export default function Dispositivo() {
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#49607D",
     paddingBottom: 40,
   },
-  header: {
-    flexShrink: 1,
-    alignSelf: "flex-start",
-    marginBottom: 720,
-  },
   contentContainer: {
+    paddingHorizontal: 24,
+    paddingTop: 16,
     alignItems: "center",
-    position: "absolute",
-    width: "100%",
-    top: "25%",
-    gap: "30",
   },
   blueText: {
     color: "#0AFAFA",
@@ -100,11 +88,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   content: {
-    display: "flex",
     flexDirection: "row",
+    marginBottom: 8,
   },
   waterContainer: {
-    bottom: "5%",
+    marginVertical: 24,
   },
   leituraItem: {
     marginVertical: 6,
@@ -122,7 +110,6 @@ const styles = StyleSheet.create({
   },
   leiturasContainer: {
     width: "100%",
-    paddingHorizontal: 24,
     marginTop: 16,
     maxHeight: 260,
   },

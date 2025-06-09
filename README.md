@@ -1,16 +1,14 @@
 # Lugia Weeater
 
-
 ## Integrantes
 
-* Erik Paschoalatto dos Santos - RM554854
-* Júlio César Nunes Oliveira - RM557774
-* Nathan Magno Gustavo Consolo - RM558987
+- Erik Paschoalatto dos Santos - RM554854
+- Júlio César Nunes Oliveira - RM557774
+- Nathan Magno Gustavo Consolo - RM558987
 
 <p align="center">
   <img src="https://img.icons8.com/?size=100&id=102261&format=png&color=0AFAFA" alt="Ícone de computação em nuvem" />
 </p>
-
 
 ## Sobre o Projeto
 
@@ -47,16 +45,13 @@ tanto as autoridades quanto a população podem receber alertas precisos e tomar
 decisões mais informadas e ágeis para prevenir ou minimizar os impactos das
 enchentes.
 
-
 <p align="center">
   <img src="https://img.icons8.com/?size=100&id=RaljsbuV3tuS&format=png&color=000000" alt="Ícone de computação em nuvem" />
 </p>
 
-
 ## Dependências
-  
 
-~~~ json
+```json
 "dependencies": {
     "@react-navigation/bottom-tabs": "^7.3.13",
     "@react-navigation/native": "^7.1.9",
@@ -74,11 +69,8 @@ enchentes.
     "react-native-vector-icons": "^10.2.0",
     "react-native-svg": "15.11.2"
   }
-~~~
-
-
+```
 
 ## Utilização
 
-Vídeo de demonstração do proejeto: 
-
+Vídeo de demonstração do proejeto:
