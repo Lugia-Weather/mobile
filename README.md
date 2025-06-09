@@ -73,6 +73,6 @@ enchentes.
 
 ## Utilização
 
-Vídeo de demonstração do proejeto: https://youtu.be/bkhJz-FRFaA
+Vídeo de demonstração do projeto: https://youtu.be/bkhJz-FRFaA
 
 Pitch do projeto: https://youtu.be/-sd2b8T3hOA 
