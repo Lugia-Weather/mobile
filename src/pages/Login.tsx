@@ -37,7 +37,7 @@ export default function Login({ navigation }: any) {
 
     try {
       const response = await axios.post(
-        "http://172.191.241.118:8080/auth/login",
+        "http://172.172.133.43:8080/auth/login",
         {
           email: email,
           senha: password,
@@ -51,7 +51,7 @@ export default function Login({ navigation }: any) {
 
       if (response.status === 200) {
         const usersResponse = await axios.get(
-          "http://172.191.241.118:8080/users"
+          "http://172.172.133.43:8080/users"
         );
         if (usersResponse.status === 200 && Array.isArray(usersResponse.data)) {
           const user = usersResponse.data.find((u) => u.email === email);

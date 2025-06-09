@@ -2,7 +2,8 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
 import HeaderPages from "../components/HeaderPages";
 import WaterLevel from "../components/WaterLevel";
-import { SensorItemProps } from "../components/Sensor";
+import { Leitura, SensorItemProps } from "../components/Sensor";
+import { FlatList } from "react-native";
 
 type ParamList = {
   Dispositivo: SensorItemProps;
@@ -12,6 +13,19 @@ type ParamList = {
 type DispositivoRouteProp = RouteProp<ParamList, "Dispositivo">;
 
 export default function Dispositivo() {
+  function getStatusStyle(status: Leitura["status"]) {
+    switch (status) {
+      case "seguro":
+        return { color: "#7ed957" };
+      case "alerta":
+        return { color: "#ffb300" };
+      case "risco de alagamento":
+        return { color: "#e74c3c" };
+      default:
+        return { color: "#fff" };
+    }
+  }
+
   const route = useRoute<DispositivoRouteProp>();
   const { id_modulo, rua, data_instalacao, leituras, navigation } =
     route.params;
@@ -31,13 +45,29 @@ export default function Dispositivo() {
           <Text style={styles.blueText}>Data de instalação: </Text>
           <Text style={styles.whiteText}>{data_instalacao}</Text>
         </View>
-        <Text style={styles.blueText}>Histórico de leituras</Text>
-        <View>
-          <Text style={styles.whiteText}>{leituras}</Text>
+        <View style={styles.waterContainer}>
+          <WaterLevel level={waterLevel} />
         </View>
-      </View>
-      <View style={styles.waterContainer}>
-        <WaterLevel level={waterLevel} />
+        <View style={styles.leiturasContainer}>
+          <Text style={styles.blueText}>Histórico de leituras</Text>
+          <FlatList
+            data={leituras}
+            renderItem={({ item }) => (
+              <View style={styles.leituraItem}>
+                <Text style={[styles.status, getStatusStyle(item.status)]}>
+                  {item.status.toUpperCase()}
+                </Text>
+                <Text style={styles.whiteText}>Nível: {item.nivel_cm} cm</Text>
+                <Text style={styles.dataLeitura}>Data: {item.data}</Text>
+              </View>
+            )}
+            ListEmptyComponent={
+              <Text style={styles.whiteText}>Nenhuma leitura disponível.</Text>
+            }
+            style={{ maxHeight: 220 }}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </View>
     </View>
   );
@@ -52,7 +82,7 @@ const styles = StyleSheet.create({
   header: {
     flexShrink: 1,
     alignSelf: "flex-start",
-    marginBottom: 450,
+    marginBottom: 720,
   },
   contentContainer: {
     alignItems: "center",
@@ -74,6 +104,26 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   waterContainer: {
-    bottom: "12%",
+    bottom: "5%",
+  },
+  leituraItem: {
+    marginVertical: 6,
+    padding: 8,
+    backgroundColor: "#34495e",
+    borderRadius: 8,
+  },
+  status: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  dataLeitura: {
+    color: "#aaa",
+    fontSize: 12,
+  },
+  leiturasContainer: {
+    width: "100%",
+    paddingHorizontal: 24,
+    marginTop: 16,
+    maxHeight: 260,
   },
 });

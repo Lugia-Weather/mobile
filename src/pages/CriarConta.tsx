@@ -54,7 +54,7 @@ export default function CriarConta({ navigation }: any) {
 
     try {
       const response = await axios.post(
-        "http://172.191.241.118:8080/users/inserir",
+        "http://172.172.133.43:8080/users/inserir",
         payload,
         {
           headers: {

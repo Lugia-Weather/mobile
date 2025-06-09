@@ -7,7 +7,13 @@ export type SensorItemProps = {
   rua: string;
   navigation?: any;
   data_instalacao?: string;
-  leituras?: any;
+  leituras?: Leitura[];
+};
+
+export type Leitura = {
+  status: string;
+  nivel_cm: number;
+  data: string;
 };
 
 export default function Sensor({
