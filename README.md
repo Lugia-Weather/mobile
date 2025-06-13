@@ -2,9 +2,9 @@
 
 ## Integrantes
 
-- Erik Paschoalatto dos Santos - RM554854
-- Júlio César Nunes Oliveira - RM557774
-- Nathan Magno Gustavo Consolo - RM558987
+* **Erik Paschoalatto dos Santos**
+* **Júlio César Nunes Oliveira** 
+* **Nathan Magno Gustavo Consolo**
 
 <p align="center">
   <img src="https://img.icons8.com/?size=100&id=102261&format=png&color=0AFAFA" alt="Ícone de computação em nuvem" />
@@ -71,8 +71,66 @@ enchentes.
   }
 ```
 
+## Estrutura do Projeto
+
+```
+mobile/
+├── assets/ # Imagens e recursos estáticos
+├── src/
+│ ├── components/ # Componentes reutilizáveis (botões, inputs, headers, etc.)
+│ └── pages/ # Telas principais da aplicação (Login, CriarConta, Dispositivo, etc.)
+├── App.tsx # Arquivo principal da aplicação
+├── index.ts # Ponto de entrada
+├── package.json # Dependências e scripts
+├── tsconfig.json # Configuração do TypeScript
+├── app.json # Configuração do Expo
+```
+
+**Arquitetura**
+O projeto adota uma arquitetura baseada em microserviços, na qual o aplicativo mobile atua como cliente de múltiplas APIs independentes. Atualmente, o sistema consome duas APIs distintas, incluindo uma API desenvolvida em Java responsável pelo sistema de autenticação de usuários. 
+
 ## Utilização
 
-Vídeo de demonstração do projeto: https://youtu.be/bkhJz-FRFaA
+**Pré-requisitos**
+* Node.js (recomendado: versão 18.x ou superior)
+* Expo CLI (`npm install -g expo-cli`)
+* Git
+* Emulador Android/iOS configurado (Android Studio ou Xcode) ou dispositivo físico com o app Expo Go
 
-Pitch do projeto: https://youtu.be/-sd2b8T3hOA 
+**Clonando o repositório**
+```
+git clone https://github.com/Lugia-Weather/mobile.git
+```
+**Navegando para o repositório**
+``` 
+cd mobile
+```
+
+**Instalando as dependências**
+```
+npm install
+```
+
+> Se preferir, utilize ferramentas como `react-native-clean-project` para garantir um ambiente limpo.
+
+**Executando o app**
+- Para iniciar o projeto:
+```
+npm start
+```
+
+> Se preferir rodar diretamente em um emulador ou dispositivo:
+- Emulador Android
+```
+npm run android
+```
+- Emulador Android iOS (apenas Mac)
+```
+npm run ios
+```
+- Rodar no navegador
+```
+npm run web
+```
+
+**Vídeo de apresentação do projeto**: https://youtu.be/bKEJxBdP2to
