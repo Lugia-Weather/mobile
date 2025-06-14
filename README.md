@@ -87,7 +87,10 @@ mobile/
 ```
 
 **Arquitetura**
-O projeto adota uma arquitetura baseada em microserviços, na qual o aplicativo mobile atua como cliente de múltiplas APIs independentes. Atualmente, o sistema consome duas APIs distintas, incluindo uma API desenvolvida em Java responsável pelo sistema de autenticação de usuários. 
+O projeto adota uma arquitetura baseada em microserviços, na qual o aplicativo mobile atua como cliente de uma API Java 
+utilizando Spring Boot para criação dos endpoints REST. A persistência dos dados é feita com Spring Data JPA e Hibernate, garantindo o cadastro e autenticação de usuários
+
+> Caso queira conferir saber mais sobre o back-end do projeto, aqui está o link do repositório Java: https://github.com/Lugia-Weather/java
 
 ## Utilização
 
