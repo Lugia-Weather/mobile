@@ -94,8 +94,7 @@ utilizando Spring Boot para criação dos endpoints REST. A persistência dos da
 
 ## Utilização
 
-> Caso prefira baixar o APK em seu dispositivo Android
-Link de instalação APK: https://expo.dev/accounts/nathan299/projects/LugiaWeather/builds/93b6b8cf-b4cc-4e4c-bbde-73392486d284
+> Caso prefira baixar o APK em seu dispositivo Android: https://expo.dev/accounts/nathan299/projects/LugiaWeather/builds/93b6b8cf-b4cc-4e4c-bbde-73392486d284
 
 > Caso prefira rodar o projeto na sua máquina/IDE
 **Pré-requisitos**
